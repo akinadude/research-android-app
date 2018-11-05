@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.*
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -107,6 +107,11 @@ class Activity : CoroutineScope {
         get() = Dispatchers.Default + job
 
     fun doSomething() {
+        //todo unconscious syntax inside
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("Caught original $exception")
+        }
+
         // launch ten coroutines for a demo, each working for a different time
         repeat(10) { i ->
             launch {

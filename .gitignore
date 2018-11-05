@@ -1,0 +1,9 @@
+research-android-app/.gradle
+research-android-app/.idea
+research-android-app/.idea/*
+research-android-app/app/build
+research-android-app/build
+research-android-app/app/app.iml
+.idea
+local.properties
+research-android-app.iml
