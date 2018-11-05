@@ -66,8 +66,6 @@ class SimpleCoroutinesActivity : BaseActivity() {
     }
 
     /*
-    todo Добавить ненужные файлы в .gitignore и запушить
-
     todo Сделать ретрофитовый запрос и обработать результат
     //done! простенький пример
     // перевести на корутины один запрос в Docdoc app'е
