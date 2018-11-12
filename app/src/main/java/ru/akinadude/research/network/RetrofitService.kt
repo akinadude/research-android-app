@@ -10,4 +10,6 @@ interface RetrofitService {
     @GET("/posts")
     fun getPosts(): Deferred<Response<List<Post>>> //returns [ {}, {}, ... {} ]
 
+    //todo А могу здесь возвращать не wrapped тип, как в презенташке с appconf?
+
 }

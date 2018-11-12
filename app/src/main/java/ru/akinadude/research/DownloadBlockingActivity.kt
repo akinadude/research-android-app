@@ -16,10 +16,20 @@ class DownloadBlockingActivity : BaseActivity() {
         setContentView(R.layout.activity_coroutines)
 
         floating_action_button_1.setOnClickListener {
-            launch {
+            /*launch {
                 text_view.text = ""
                 val deferred: Deferred<String> = async(Dispatchers.IO) { downloadData() }
                 val data = deferred.await()
+                Logger.d("Data: $data")
+                display(data)
+            }*/
+
+            // Don't launch another coroutine, use existed one with modified context
+            launch {
+                clear()
+                val data = withContext(Dispatchers.IO) {
+                    downloadData()
+                }
                 Logger.d("Data: $data")
                 display(data)
             }
@@ -27,6 +37,10 @@ class DownloadBlockingActivity : BaseActivity() {
 
         floating_action_button_2.setOnClickListener {
         }
+    }
+
+    private fun clear() {
+        text_view.text = ""
     }
 
     private fun display(data: String) {

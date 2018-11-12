@@ -47,6 +47,19 @@ class SimpleCoroutinesActivity : BaseActivity() {
                 } else {
                     Logger.d("Retrofit error ${response.code()}")
                 }
+
+                /*
+                Заметки по статье
+                1)
+
+                2) Запуск корутины с таймаутом
+                withTimeout()
+                withTimeoutOrNull()
+
+                3) Example of lifecycle aware coroutine scope for LifecycleObserver
+
+                4) CoroutineExceptionHanbler usage
+                */
             }
         }
     }
