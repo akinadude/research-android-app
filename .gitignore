@@ -8,3 +8,4 @@ research-android-app/app/app.iml
 .gradle/*
 local.properties
 research-android-app.iml
+app/app.iml
