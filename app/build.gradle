@@ -41,10 +41,14 @@ dependencies {
 
     //retrofit adapter for Deferred<> type
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
-    //implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
     //custom logger
     implementation 'com.orhanobut:logger:2.2.0'
+
+    // for lyfecycle components
+    implementation "android.arch.lifecycle:runtime:1.1.1"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
