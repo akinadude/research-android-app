@@ -4,12 +4,12 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitFactory {
-    const val BASE_URL = "https://jsonplaceholder.typicode.com"
+object GithubFactory {
+    private const val BASE_URL = "https://api.github.com"
 
-    fun createRetrofitService(): RetrofitService = Retrofit.Builder()
+    fun createRetrofitService(): GithubService = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .build().create(RetrofitService::class.java)
+            .build().create(GithubService::class.java)
 }

@@ -2,14 +2,16 @@ package ru.akinadude.research
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_coroutines.*
 import kotlinx.coroutines.*
-import ru.akinadude.research.network.RetrofitFactory
-import kotlin.coroutines.coroutineContext
+import ru.akinadude.research.api.GithubApi
+import ru.akinadude.research.manager.UserManager
+import ru.akinadude.research.model.github.User
+import ru.akinadude.research.mvp.presenter.UserPresenter
+import ru.akinadude.research.mvp.view.UserView
 
-class SimpleCoroutinesActivity : BaseActivity() {
+class SimpleCoroutinesActivity : /*BaseActivity()*/AppCompatActivity(), UserView {
 
     //todo напиать руководство, как работать с отменой корутин и с exception'aми с примерами кода.
     // соединить главу Exception handling с главой, где ранее упоминался CancellationException
@@ -21,15 +23,20 @@ class SimpleCoroutinesActivity : BaseActivity() {
     // переключение потоков
     // обложить этот флоу MVP, сделать обработку ошибок
 
+    val api: GithubApi = GithubApi()
+    val manager: UserManager = UserManager(api)
+    val presenter: UserPresenter = UserPresenter(manager, this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutines)
+        lifecycle.addObserver(presenter)
 
         floating_action_button_1.setOnClickListener {
-            //setTextAfterDelay(2, "Hello from a coroutine!")
 
-            val service = RetrofitFactory.createRetrofitService()
-            launch {
+            presenter.showUserInfo("akinadude")
+            //val service = TypicodeFactory.createRetrofitService()
+            //launch {
                 /*val handler = CoroutineExceptionHandler { _, exception ->
                     println("Caught $exception with suppressed ${exception.suppressed.contentToString()}")
                 }*/
@@ -41,14 +48,37 @@ class SimpleCoroutinesActivity : BaseActivity() {
                 } finally {
                     Logger.d("Finally block")
                 }*/
-                val response = service.getPosts().await()
+              /*  val response = service.getPosts().await()
                 if (response.isSuccessful) {
                     Logger.d("Retrofit response ${response.body()}")
                 } else {
                     Logger.d("Retrofit error ${response.code()}")
                 }
-            }
+            }*/
+
+
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(presenter)
+    }
+
+    override fun showProgress() {
+
+    }
+
+    override fun hideProgress() {
+
+    }
+
+    override fun showUser(user: User) {
+        text_view.text = user.name
+    }
+
+    override fun showError(e: Exception) {
+
     }
 
     private fun setTextAfterDelay(seconds: Long, text: String) {
@@ -81,6 +111,8 @@ class SimpleCoroutinesActivity : BaseActivity() {
 
     todo как будет выгдлядеть запрос, требующий валидного авторизационного токена (в коде Docdoc)
     при использовании корутин
+
+    todo рассмотреть подробнее вопрос логирования
     */
 /*
     class LocalData(val name: String)

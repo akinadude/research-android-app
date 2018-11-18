@@ -17,5 +17,7 @@ class TestFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //todo use UserPresenter here
     }
 }
