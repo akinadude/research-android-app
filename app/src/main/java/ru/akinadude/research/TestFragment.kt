@@ -7,6 +7,16 @@ import android.view.ViewGroup
 
 class TestFragment : BaseFragment() {
 
+    //todo remove redundant scope implementations. Scope must be only in LCPesenter
+
+    //todo move all UI into fragments
+
+    //todo read two articles. Write comments into doc.
+
+    //todo Watch the presentation from appsConf. Write noted into doc.
+
+    //todo chaining and parallel network requests.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
