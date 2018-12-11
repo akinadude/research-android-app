@@ -7,7 +7,7 @@ import ru.akinadude.research.mvp.view.UserView
 class UserPresenter(
         private val manager: UserManager,
         view: UserView
-): LifeCyclePresenter<UserView>(view) {
+): LifecyclePresenter<UserView>(view) {
 
     fun showUserInfo(username: String) = launch {
         getView()?.showProgress()

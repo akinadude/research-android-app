@@ -19,8 +19,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SimpleCoroutinesActivity"/>
-
         <activity android:name=".DownloadBlockingActivity"/>
     </application>
 
