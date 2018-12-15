@@ -1,4 +1,4 @@
-package ru.akinadude.research
+package ru.akinadude.research.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

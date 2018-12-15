@@ -1,10 +1,11 @@
-package ru.akinadude.research
+package ru.akinadude.research.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
+import ru.akinadude.research.R
 import ru.akinadude.research.mvp.presenter.MainPresenter
 import ru.akinadude.research.mvp.view.MainView
 
@@ -38,8 +39,16 @@ class MainFragment : BaseFragment(), MainView {
     }
 
     override fun navigateToFirstScreen() {
-        fragmentManager?.let { fm ->
+        /*fragmentManager?.let { fm ->
             val f = ProfileFragment.newInstance()
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, f)
+                    .addToBackStack(f.javaClass.name)
+                    .commit()
+        }*/
+
+        fragmentManager?.let { fm ->
+            val f = SearchUsersFragment.newInstance()
             fm.beginTransaction()
                     .replace(R.id.fragment_container, f)
                     .addToBackStack(f.javaClass.name)
@@ -56,10 +65,14 @@ class MainFragment : BaseFragment(), MainView {
     //===========================
     //todo досмотреть презенташку с AppsConf
 
+    //todo вытянуть top 30 юзеров, отрисовать в списке
     //todo задавать имя из UI
     //todo вытянуть все репозитории
     //todo вытянуть количество коммитов по каждому репозиторию
     //===========================
+
+    //Cicerone library
+    //Create apply repository pattern
 
     /*
     todo напиать руководство, как работать с отменой корутин и с exception'aми с примерами кода.
@@ -106,7 +119,7 @@ class MainFragment : BaseFragment(), MainView {
     Модификатор говорит о том, что метод, который с ним объявлен, может на некоторое время приостановить
     свое выполнение и возобновить его позже при этом не блокируя поток, на котором происходит исполнение.
 
-    fun getUsers(token: AuthToken): Call<List<User>> -> suspend fun getUsers(token: AuthToken): List<User>
+    fun searchUsers(token: AuthToken): Call<List<User>> -> suspend fun searchUsers(token: AuthToken): List<User>
 
     =========================
     Ограничения, связанные с модификатором suspended

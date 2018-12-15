@@ -22,11 +22,11 @@ abstract class LifecyclePresenter<out V : BaseView>(view: V)
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job + exceptionHandler
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun start() {
         job = Job()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun stop() = job.cancel()
 }

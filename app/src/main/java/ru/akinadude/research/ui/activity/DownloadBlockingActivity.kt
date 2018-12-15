@@ -1,4 +1,4 @@
-package ru.akinadude.research
+package ru.akinadude.research.ui.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_coroutines.*
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import ru.akinadude.research.R
 
 
 class DownloadBlockingActivity : BaseActivity() {

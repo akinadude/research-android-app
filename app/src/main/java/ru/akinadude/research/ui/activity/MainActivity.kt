@@ -1,8 +1,10 @@
-package ru.akinadude.research
+package ru.akinadude.research.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import ru.akinadude.research.R
+import ru.akinadude.research.ui.fragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //todo handle back pressed within fragments
-
         val count = supportFragmentManager.backStackEntryCount
         if (count == 0) {
             super.onBackPressed()

@@ -1,13 +1,13 @@
 package ru.akinadude.research.mvp.presenter
 
 import kotlinx.coroutines.launch
-import ru.akinadude.research.manager.UserManager
-import ru.akinadude.research.mvp.view.UserView
+import ru.akinadude.research.manager.ProfileManager
+import ru.akinadude.research.mvp.view.ProfileView
 
-class UserPresenter(
-        private val manager: UserManager,
-        view: UserView
-): LifecyclePresenter<UserView>(view) {
+class ProfilePresenter(
+        private val manager: ProfileManager,
+        view: ProfileView
+): LifecyclePresenter<ProfileView>(view) {
 
     fun showUserInfo(username: String) = launch {
         getView()?.showProgress()
