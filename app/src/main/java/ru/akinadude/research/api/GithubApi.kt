@@ -1,5 +1,6 @@
 package ru.akinadude.research.api
 
+import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import ru.akinadude.research.model.github.User
 import ru.akinadude.research.model.github.UsersContainer
@@ -11,5 +12,7 @@ class GithubApi {
 
     fun getUser(username: String): Deferred<User> = service.getUser(username)
 
-    fun searchUsers(): Deferred<UsersContainer> = service.searchUsers()
+    fun searchUsersCo(searchText: String): Deferred<UsersContainer> = service.searchUsersCo(searchText)
+
+    fun searchUsers(searchText: String): Single<UsersContainer> = service.searchUsers(searchText)
 }

@@ -1,51 +1,41 @@
 package ru.akinadude.research.ui.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orhanobut.logger.Logger
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_search_users.*
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import retrofit2.HttpException
 import ru.akinadude.research.R
 import ru.akinadude.research.api.GithubApi
 import ru.akinadude.research.manager.SearchManager
 import ru.akinadude.research.model.github.User
-import ru.akinadude.research.model.github.UsersContainer
 import ru.akinadude.research.mvp.presenter.LifecyclePresenter
-import ru.akinadude.research.mvp.presenter.SearchPresenter
+import ru.akinadude.research.mvp.presenter.SearchCoPresenter
 import ru.akinadude.research.mvp.view.BaseView
 import ru.akinadude.research.mvp.view.SearchUsersView
 import ru.akinadude.research.ui.adapter.SearchAdapter
-import java.util.concurrent.TimeUnit
 
 
-class SearchUsersFragment : Fragment(), SearchUsersView {
-
-    //todo show text with an error
-
-    //todo implement example with publisher
+class SearchUsersCoFragment : BaseCoFragment(), SearchUsersView {
 
     companion object {
 
-        fun newInstance(): SearchUsersFragment {
-            return SearchUsersFragment()
+        fun newInstance(): SearchUsersCoFragment {
+            return SearchUsersCoFragment()
         }
     }
 
     private val api = GithubApi()
     private val manager = SearchManager(api)
-    private val presenter = SearchPresenter(manager, this)
+    private val presenter = SearchCoPresenter(manager, this)
+
     private val adapter = SearchAdapter()
+
+    override val lifecyclePresenter: LifecyclePresenter<BaseView>
+        get() = presenter
 
 
     override fun showProgress() {
@@ -90,28 +80,4 @@ class SearchUsersFragment : Fragment(), SearchUsersView {
             }
         })
     }
-
-    /*private fun subscribe() {
-        //todo разобраться, как работать с паблишерами
-        publishSubject = PublishSubject.create()
-        disposable = publishSubject.debounce(300, TimeUnit.MILLISECONDS)
-                .switchMap { searchText ->
-                    manager.searchUsers(searchText)
-                            .toObservable()
-                            .subscribeOn(Schedulers.io())
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            Logger.d("search, onSuccess")
-                            adapter.submitList(it.items)
-                        },
-                        {
-                            Logger.d("search, onError, $it")
-                            adapter.submitList(emptyList())
-                            disposable?.dispose()
-                            subscribe()
-                        }
-                )
-    }*/
 }

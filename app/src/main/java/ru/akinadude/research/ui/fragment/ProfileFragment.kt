@@ -12,7 +12,7 @@ import ru.akinadude.research.model.github.User
 import ru.akinadude.research.mvp.presenter.ProfilePresenter
 import ru.akinadude.research.mvp.view.ProfileView
 
-class ProfileFragment : BaseFragment(), ProfileView {
+class ProfileFragment : BaseCoFragment(), ProfileView {
 
     companion object {
 

@@ -8,7 +8,7 @@
         android:id="@+id/start_first_screen_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="First screen"
+        android:text="Search Rx"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,7 +17,7 @@
         android:id="@+id/start_second_screen_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Second screen"
+        android:text="Search coroutines"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_first_screen_button" />

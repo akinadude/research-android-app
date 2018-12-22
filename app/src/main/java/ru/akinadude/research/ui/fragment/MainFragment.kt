@@ -9,7 +9,7 @@ import ru.akinadude.research.R
 import ru.akinadude.research.mvp.presenter.MainPresenter
 import ru.akinadude.research.mvp.view.MainView
 
-class MainFragment : BaseFragment(), MainView {
+class MainFragment : BaseCoFragment(), MainView {
 
     companion object {
 
@@ -39,14 +39,6 @@ class MainFragment : BaseFragment(), MainView {
     }
 
     override fun navigateToFirstScreen() {
-        /*fragmentManager?.let { fm ->
-            val f = ProfileFragment.newInstance()
-            fm.beginTransaction()
-                    .replace(R.id.fragment_container, f)
-                    .addToBackStack(f.javaClass.name)
-                    .commit()
-        }*/
-
         fragmentManager?.let { fm ->
             val f = SearchUsersFragment.newInstance()
             fm.beginTransaction()
@@ -57,22 +49,48 @@ class MainFragment : BaseFragment(), MainView {
     }
 
     override fun navigateToSecondScreen() {
-
+        fragmentManager?.let { fm ->
+            val f = SearchUsersCoFragment.newInstance()
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, f)
+                    .addToBackStack(f.javaClass.name)
+                    .commit()
+        }
     }
 
     //===========================
     // Really need to do
     //===========================
-    //todo досмотреть презенташку с AppsConf
+    //todo придумать и реализовать на корутинах сложные кейсы комбинирования данных.
+    // Можно подумать на предмет
+    // - вытянуть все репозитории юзера
+    // - вытянуть количество коммитов по каждому репозиторию юзера
+    // - количество добавленных/удаленных/измененных пользователем строк
+    // - поиск по репозиториям пользователя
 
-    //todo вытянуть top 30 юзеров, отрисовать в списке
-    //todo задавать имя из UI
-    //todo вытянуть все репозитории
-    //todo вытянуть количество коммитов по каждому репозиторию
+    //todo cold и hot обзерваблы в терминах корутин. Как имплементить? Каналы?
+
+    // Представить решение с помощью rx и с помощью корутин. Сравнить, обозначить преимущества и недостатки.
+    // Понадобится хорошее понимание rx (операторы, паблишеры, back pressure)
+
+    //todo поискать интересные решения, основанные на корутинах.
+    // Как их можно применить к андроид-приложению.
+
+    //todo
+    // Тестирование
+    // - подменять контекст
+    // - мокировать корутину, Mockk
+
+    //todo
+    // Потенциальные проблемы
+    // - как решается проблема unhandled global exception, проявляющаяся при использовании rx?
+    // - ...
     //===========================
 
     //Cicerone library
     //Create apply repository pattern
+    //clean arch: presetner interactor repository
+    //RIB arch (Uber)
 
     /*
     todo напиать руководство, как работать с отменой корутин и с exception'aми с примерами кода.

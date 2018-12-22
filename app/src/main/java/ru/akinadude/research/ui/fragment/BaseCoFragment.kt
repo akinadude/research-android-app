@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import ru.akinadude.research.mvp.presenter.LifecyclePresenter
 import ru.akinadude.research.mvp.view.BaseView
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseCoFragment : Fragment() {
 
     abstract val lifecyclePresenter: LifecyclePresenter<BaseView>
 
