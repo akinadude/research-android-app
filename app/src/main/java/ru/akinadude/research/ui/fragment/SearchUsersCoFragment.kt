@@ -2,11 +2,12 @@ package ru.akinadude.research.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_search_users.*
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import retrofit2.HttpException
 import ru.akinadude.research.R
 import ru.akinadude.research.api.GithubApi
@@ -17,9 +18,12 @@ import ru.akinadude.research.mvp.presenter.SearchCoPresenter
 import ru.akinadude.research.mvp.view.BaseView
 import ru.akinadude.research.mvp.view.SearchUsersView
 import ru.akinadude.research.ui.adapter.SearchAdapter
+import ru.akinadude.research.utils.BaseTextWatcher
 
 
 class SearchUsersCoFragment : BaseCoFragment(), SearchUsersView {
+
+    val broadcast = BroadcastChannel<String>(1)
 
     companion object {
 
@@ -54,9 +58,14 @@ class SearchUsersCoFragment : BaseCoFragment(), SearchUsersView {
 
     override fun showError(t: Throwable) = when (t) {
         is HttpException -> {
+            if (t.code() == 403) {
+                search_users_error_text_view.text = getString(R.string.search_users_http_403_error)
+            } else {
+                search_users_error_text_view.text = getString(R.string.search_users_error)
+            }
+            search_users_error_text_view.visibility = View.VISIBLE
             search_users_progress_bar.visibility = View.GONE
             search_users_recycler_view.visibility = View.GONE
-            //error_text_view.visibility = View.VISIBLE
         }
         else -> Unit
     }
@@ -68,16 +77,16 @@ class SearchUsersCoFragment : BaseCoFragment(), SearchUsersView {
         super.onViewCreated(view, savedInstanceState)
         search_users_recycler_view.adapter = adapter
 
-        search_query_edit_text.addTextChangedListener(object : TextWatcher {
+        search_query_edit_text.addTextChangedListener(object : BaseTextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                presenter.performSearch(s.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //presenter.performSearch(s.toString())
+                presenter.performSearchWithChannel(s.toString(), broadcast)
             }
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.subscribeToChannel(broadcast)
     }
 }
