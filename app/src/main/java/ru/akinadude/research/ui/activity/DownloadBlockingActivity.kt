@@ -16,28 +16,27 @@ class DownloadBlockingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutines)
 
-        floating_action_button_1.setOnClickListener {
-            /*launch {
-                text_view.text = ""
-                val deferred: Deferred<String> = async(Dispatchers.IO) { downloadData() }
-                val data = deferred.await()
-                Logger.d("Data: $data")
-                display(data)
-            }*/
+        floating_action_button_1.setOnClickListener { getAndShowData() }
 
-            // Don't launch another coroutine, use existed one with modified context
-            launch {
-                clear()
-                val data = withContext(Dispatchers.IO) {
-                    downloadData()
-                }
-                Logger.d("Data: $data")
-                display(data)
-            }
-        }
+        floating_action_button_2.setOnClickListener { getAndShowDataTheSameCoroutine() }
+    }
 
-        floating_action_button_2.setOnClickListener {
+    private fun getAndShowData() = launch {
+        clear()
+        val deferred = async(Dispatchers.IO) { downloadData() }
+        val data = deferred.await()
+        Logger.d("Data: $data")
+        display(data)
+    }
+
+    // Don't launch another coroutine, use existed one with modified context
+    private fun getAndShowDataTheSameCoroutine() = launch {
+        clear()
+        val data = withContext(Dispatchers.IO) {
+            downloadData()
         }
+        Logger.d("Data: $data")
+        display(data)
     }
 
     private fun clear() {
@@ -59,6 +58,7 @@ class DownloadBlockingActivity : BaseActivity() {
     }
 
     private suspend fun downloadDataAndDisplay() = coroutineScope {
+        //val job = this.coroutineContext[Job]
         val data = async(Dispatchers.IO) { downloadData() }
         Log.d("TAG", "downloadDataAndDisplay, data: $data")
 

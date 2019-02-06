@@ -1,6 +1,5 @@
 package ru.akinadude.research.network
 
-import io.reactivex.Observable
 import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET

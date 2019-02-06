@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_search_users.*
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import ru.akinadude.research.R
 import ru.akinadude.research.api.GithubApi

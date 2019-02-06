@@ -21,8 +21,8 @@ class ProfileFragment : BaseCoFragment(), ProfileView {
         }
     }
 
-    val api: GithubApi = GithubApi()
-    val manager: ProfileManager = ProfileManager(api)
+    private val api: GithubApi = GithubApi()
+    private val manager: ProfileManager = ProfileManager(api)
     private val presenter: ProfilePresenter = ProfilePresenter(manager, this)
 
     override val lifecyclePresenter
