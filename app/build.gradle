@@ -30,6 +30,9 @@ dependencies {
     // common libs
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // rounded corner progress bar
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
     // coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'

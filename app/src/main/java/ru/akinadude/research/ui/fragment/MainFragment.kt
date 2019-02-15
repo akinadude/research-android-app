@@ -36,6 +36,10 @@ class MainFragment : BaseCoFragment(), MainView {
         start_second_screen_button.setOnClickListener {
             presenter.navigateToSecondScreen()
         }
+
+        start_race_screen_button.setOnClickListener {
+            presenter.navigateToRaceScreen()
+        }
     }
 
     override fun navigateToFirstScreen() {
@@ -51,6 +55,16 @@ class MainFragment : BaseCoFragment(), MainView {
     override fun navigateToSecondScreen() {
         fragmentManager?.let { fm ->
             val f = SearchUsersCoFragment.newInstance()
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, f)
+                    .addToBackStack(f.javaClass.name)
+                    .commit()
+        }
+    }
+
+    override fun navigateToRaceScreen() {
+        fragmentManager?.let { fm ->
+            val f = RaceCoFragment.newInstance()
             fm.beginTransaction()
                     .replace(R.id.fragment_container, f)
                     .addToBackStack(f.javaClass.name)

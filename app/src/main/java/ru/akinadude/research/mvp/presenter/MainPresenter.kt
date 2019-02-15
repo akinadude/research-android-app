@@ -12,4 +12,8 @@ class MainPresenter(view: MainView) : LifecyclePresenter<MainView>(view) {
     fun navigateToSecondScreen() {
         getView()?.navigateToSecondScreen()
     }
+
+    fun navigateToRaceScreen() {
+        getView()?.navigateToRaceScreen()
+    }
 }
