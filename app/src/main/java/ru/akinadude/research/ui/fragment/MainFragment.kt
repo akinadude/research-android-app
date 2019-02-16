@@ -8,6 +8,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import ru.akinadude.research.R
 import ru.akinadude.research.mvp.presenter.MainPresenter
 import ru.akinadude.research.mvp.view.MainView
+import ru.akinadude.research.ui.fragment.demo1.AsyncCoFragment
+import ru.akinadude.research.ui.fragment.demo1.RaceCoFragment
+import ru.akinadude.research.ui.fragment.demo1.ThreadsVsCoFragment
 
 class MainFragment : BaseCoFragment(), MainView {
 
@@ -40,6 +43,14 @@ class MainFragment : BaseCoFragment(), MainView {
         start_race_screen_button.setOnClickListener {
             presenter.navigateToRaceScreen()
         }
+
+        start_async_screen_button.setOnClickListener {
+            presenter.navigateToAsyncScreen()
+        }
+
+        start_threads_vs_co_screen_button.setOnClickListener {
+            presenter.navigateToThreadsVsCoScreen()
+        }
     }
 
     override fun navigateToFirstScreen() {
@@ -65,6 +76,26 @@ class MainFragment : BaseCoFragment(), MainView {
     override fun navigateToRaceScreen() {
         fragmentManager?.let { fm ->
             val f = RaceCoFragment.newInstance()
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, f)
+                    .addToBackStack(f.javaClass.name)
+                    .commit()
+        }
+    }
+
+    override fun navigateToAsyncScreen() {
+        fragmentManager?.let { fm ->
+            val f = AsyncCoFragment.newInstance()
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, f)
+                    .addToBackStack(f.javaClass.name)
+                    .commit()
+        }
+    }
+
+    override fun navigateToThreadsVsCoScreen() {
+        fragmentManager?.let { fm ->
+            val f = ThreadsVsCoFragment.newInstance()
             fm.beginTransaction()
                     .replace(R.id.fragment_container, f)
                     .addToBackStack(f.javaClass.name)
@@ -120,57 +151,5 @@ class MainFragment : BaseCoFragment(), MainView {
     todo придумать разные кейсы работы с данными, где хорошо работает rx с его операторами.
     перезапрос токена, если текущий невалиден для запроса, требующего авторизацию
     Можно подсмотреть у Docdoc.
-    */
-
-/*
-    class LocalData(val name: String)
-    class Data(val name: String)
-    class AuthToken(val token: String)
-    val token: AuthToken = AuthToken("token")
-
-    suspend fun getAuthToken(): AuthToken = token
-
-    suspend fun sendData(token: AuthToken, data: LocalData): Data = Data("dataFromBackend")
-
-    suspend fun updateData(data: Data) {
-    }
-
-    suspend fun postData(localData: LocalData) {
-        val token = getAuthToken()
-        val data = sendData(token, localData)
-        updateData(data)
-    }*/
-
-    //Похоже на блокирующие вызовы!
-
-    /*
-    What is suspending functions?
-    Модификатор говорит о том, что метод, который с ним объявлен, может на некоторое время приостановить
-    свое выполнение и возобновить его позже при этом не блокируя поток, на котором происходит исполнение.
-
-    fun searchUsers(token: AuthToken): Call<List<User>> -> suspend fun searchUsers(token: AuthToken): List<User>
-
-    =========================
-    Ограничения, связанные с модификатором suspended
-
-    That is because delay is a special suspending function that does not block a thread,
-    but suspends coroutine and it can be only used from a coroutine.
-
-
-    launch { // launch new coroutine in background and continue
-        delay(1000L) // non-blocking delay
-        println("World!")
-    }
-    println("Hello,") // main thread continues while coroutine is delayed
-    Thread.sleep(2000L) // block main thread for 2 seconds to keep app alive
-
-    Попробуем заменить launch на thread и посмотрим, что будет при запуске.
-
-    Будет ошибка компиляции:
-    Error: Kotlin: Suspend functions are only allowed to be called from a coroutine or another suspend function
-
-    =========================
-    ...
-
     */
 }

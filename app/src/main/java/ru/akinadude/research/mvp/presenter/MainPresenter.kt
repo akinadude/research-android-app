@@ -16,4 +16,12 @@ class MainPresenter(view: MainView) : LifecyclePresenter<MainView>(view) {
     fun navigateToRaceScreen() {
         getView()?.navigateToRaceScreen()
     }
+
+    fun navigateToAsyncScreen() {
+        getView()?.navigateToAsyncScreen()
+    }
+
+    fun navigateToThreadsVsCoScreen() {
+        getView()?.navigateToThreadsVsCoScreen()
+    }
 }

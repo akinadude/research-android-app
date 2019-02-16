@@ -1,4 +1,4 @@
-package ru.akinadude.research.ui.fragment
+package ru.akinadude.research.ui.fragment.demo1
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -54,38 +54,11 @@ class RaceCoFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //start_btn.setOnClickListener { startUpdate() }
-        start_btn.setOnClickListener { asyncBlockingThread() }
+        start_btn.setOnClickListener { startUpdate() }
         red_progress_bar.progress = 0f
         green_progress_bar.progress = 0f
         blue_progress_bar.progress = 0f
     }
-
-    //+++++++++++++++++++++++++++++++++++++++++
-    //todo перенести в другой фрагмент
-    //todo прикрутить простенький UI, как в DownloadBlockingActivity
-
-    //crash with NetworkOnMainThreadException
-    private fun asyncBlockingThread() {
-        launch {
-            val deferred = async/*(Dispatchers.IO)*/ {
-                downloadData()
-            }
-            val data = deferred.await()
-            Logger.d("Data: $data")
-        }
-    }
-
-    private fun downloadData(): String {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-                .url("https://jsonplaceholder.typicode.com/posts")
-                .build()
-
-        val response = client.newCall(request).execute()
-        return response.body()?.string() ?: ""
-    }
-    //+++++++++++++++++++++++++++++++++++++++++
 
     private fun startUpdate() {
         resetRun()

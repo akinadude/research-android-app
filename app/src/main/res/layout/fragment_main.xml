@@ -23,12 +23,30 @@
         app:layout_constraintTop_toBottomOf="@+id/start_first_screen_button" />
 
     <Button
-        android:id="@+id/start_race_screen_button"
+        android:id="@+id/start_threads_vs_co_screen_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Race screen"
+        android:text="Threads vs co"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_second_screen_button" />
+
+    <Button
+        android:id="@+id/start_race_screen_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Race in UI thread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_threads_vs_co_screen_button" />
+
+    <Button
+        android:id="@+id/start_async_screen_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Async usage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_race_screen_button" />
 
 </android.support.constraint.ConstraintLayout>
