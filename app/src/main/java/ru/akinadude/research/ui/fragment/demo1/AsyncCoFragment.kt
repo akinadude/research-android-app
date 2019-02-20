@@ -52,20 +52,18 @@ class AsyncCoFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun requestPostsWithAsync() = launch {
+    private fun requestPostsWithLaunch() = launch {
         clearUI()
-        //crash with NetworkOnMainThreadException without changing the dispatcher
-        val deferred = async {
-            fetch("posts")
-        }
-        val posts = deferred.await()
+        val posts = fetch("posts") //crash with NetworkOnMainThreadException
         displayInUI(posts)
     }
 
-    private fun requestPostsWithLaunch() = launch {
+    private fun requestPostsWithAsync() = launch {
         clearUI()
-        //crash with NetworkOnMainThreadException
-        val posts = fetch("posts")
+        val deferred = async { //crash with NetworkOnMainThreadException without changing the dispatcher
+            fetch("posts")
+        }
+        val posts = deferred.await()
         displayInUI(posts)
     }
 
@@ -89,7 +87,7 @@ class AsyncCoFragment : Fragment(), CoroutineScope {
                 .url(baseUrl + what)
                 .build()
 
-        //network blocking call
+        //network call
         val response = client.newCall(request).execute()
         return response.body()?.string() ?: ""
     }
